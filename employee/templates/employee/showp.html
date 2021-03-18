@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load cms_tags %}
+{% load static %}
+        <title>
+            {% block title %}
+            {{ page_title|default:"PRODUCT" }}
+            {% endblock title %}
+        </title>
+{% block content %}
+
+        <table class="table table-striped table-bordered table-sm" style="">
+            <thead class="thead-dark ">
+                <tr>
+                    <th>user</th>
+                    <th>Product Name</th>
+                    <th>Product Categry</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+
+                </tr>
+            </thead>
+            <tbody>
+            {% for product in products %}
+                <tr>
+                    <td>{{ product.user_id.lname }} {{ product.user_id.fname }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.categry }}</td>
+
+                    <td>
+                        <a href="/en/updatep/{{ product.id }}"><span class="glyphicon glyphicon-pencil" >Edit</span></a>
+                    </td>
+                    <td>
+                        <a href="/deletep/{{ product.id }}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <br/>
+        <br/>
+        <center><a href="/prd" class="btn btn-primary">Add New Record</a></center>
+{% endblock content %}

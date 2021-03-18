@@ -1,0 +1,188 @@
+<html>
+   <head>
+      <title>Welcome To Angular Js tutorial</title>
+      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular.min.js"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+      <style>
+         table, th , td {
+            border: 1px solid grey;
+            border-collapse: collapse;
+            padding: 5px;
+         }
+
+         table tr:nth-child(odd) {
+            background-color: #f2f2f2;
+         }
+
+         table tr:nth-child(even) {
+            background-color: #ffffff;
+         }
+      </style>
+   </head>
+   
+   <body>
+      <br/>
+      <center>
+         <div ng-app = "mainApp" ng-controller = "studentController">
+            <center><input type="button" ng-click="isShowHide('show')" value="Subject"> <input type="button" ng-click="isShowHide('hide')" value="User"></center>
+            <div ng-show="showval">
+               <table border = "1">
+                  <tr><td>First Name:</td><td>{{ fname }}</td></tr>
+                  <tr><td>Last Name: </td><td>{{ lname }}</td></tr>
+                  <tr><td>Full Name: </td><td>{{ fname }} {{ lname }}</td></tr>
+                  <tr><td>Subject:</td><td>
+                  <table class="table table-bordered table-hover">
+                     <tr><th>Subject Name</th><th>Subject Marks</th></tr>
+                     <tr><td>Physics:</td><td>{{ physics }}</td></tr>
+                     <tr><td>Chemistry: </td><td>{{ chemistry }}</td></tr>
+                     <tr><td>Math:</td><td>{{ math }}</td></tr>
+                     <tr><td>English: </td><td>{{ english }}</td></tr>
+                     <tr><td>Hindi:</td><td>{{ hindi }}</td></tr>
+                     <th>Sum</th><td>{{ physics + chemistry + math + english + hindi }} / 500</td>
+                  </table>
+               </table>
+            </div>
+            <br/>
+            <div ng-show="show" >
+               <table >
+                  <tr>
+                     <th>First Name</th>
+                     <th>Last Name</th>
+                     <th>Email</th>
+                     <th>Address</th>
+                     <th>Country</th>
+                     <th>Physics</th>
+                     <th>Chemistry</th>
+                     <th>Math</th>
+                     <th>English</th>
+                     <th>Hindi</th>
+                  </tr>
+                  <tr>
+                     <td>{{ fname }}</td>
+                     <td>{{ lname }}</td>
+                     <td>{{ email }}</td>
+                     <td>{{ address }}</td>
+                     <td>{{ country }}</td>  
+                     <td>{{ physics }}</td>
+                     <td>{{ chemistry }}</td>
+                     <td>{{ math }}</td>
+                     <td>{{ english }}</td>
+                     <td>{{ hindi }}</td>
+
+                  </tr>
+               </table>
+            </div>
+            <br/>
+            <div ng-hide="hideval">
+               <table border="2">   
+                  <tr>
+                     <td>User:</td>
+                     <td>
+                        <table>
+                           <tr>
+                              <th>Index</th>
+                              <th>First Name</th>
+                              <th>Last Name</th>
+                              <th>Email</th>
+                              <th>Address</th>
+                              <th>Country</th>
+                              <th>Full Address</th>
+                              <th>Physics</th>
+                              <th>Chemistry</th>
+                              <th>Math</th>
+                              <th>English</th>
+                              <th>Hindi</th>
+                              <th>Info</th>
+                           </tr>
+                           <tr ng-repeat = "users in user">
+                              <td >{{$index}}</td>
+                              <td>{{ users.fname }}</td>
+                              <td>{{ users.lname }}</td>
+                              <td>{{ users.email }}</td>
+                              <td>{{ users.address }}</td>
+                              <td>{{ users.country }} </td>
+                              <td ng-if = "users.address != '' && users.country != ''">{{ users.address }} , {{ users.country }} </td>
+                              <td ng-if = "users.address == '' || users.country == ''">{{ users.address }}  {{ users.country }}</td>
+                              <td>{{ users.physics }}</td>
+                              <td>{{ users.chemistry }}</td>
+                              <td>{{ users.math }}</td>
+                              <td>{{ users.english }}</td>
+                              <td>{{ users.hindi }}</td>
+                              <td><input type="button" value="Get Details" ng-click="SetDetails($index);isShow('show')"/></td>
+                           </tr>
+                        </table>
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+      </center>
+      <script type="text/javascript">
+         var mainApp = angular.module("mainApp", []);
+         
+         mainApp.controller('studentController', function($scope,  $window) {
+            $scope.user =[
+               {fname:'Shah',lname:'Dharit',email:'dharit@Shah.com',address:'Ahmedabad',country:'India',physics:90,chemistry:91,math:92,english:93,hindi:94},
+               {fname:'Gajjar',lname:'Dhruvil',email:'dhruvil@Gajjar.com',address:'Gandhinagar',country:'Gujrat ',physics:60,chemistry:62,math:63,english:64,hindi:65},
+               {fname:'Dwidedi',lname:'Jvaneel',email:'Jvaneel@Dwidedi.com',address:'',country:'Canada',physics:70,chemistry:71,math:73,english:74,hindi:75},
+               {fname:'Patel',lname:'Raj',email:'Raj@Patel.com',address:'Paris',country:'',physics:80,chemistry:81,math:83,english:84,hindi:85},
+               {fname:'Jain',lname:'Devandra',email:'Devandra@Jain.com',address:'',country:'Japan',physics:50,chemistry:51,math:52,english:53,hindi:54},
+               
+            ]
+
+            $scope.GetDetails = function (index) {
+               var fname = $scope.user[index].fname;
+               var lname = $scope.user[index].lname;
+               var Physics = $scope.user[index].Physics;
+               var Chemistry = $scope.user[index].Chemistry;
+               var nMath = $scope.user[index].Math;
+               var English = $scope.user[index].English;
+               var Hindi = $scope.user[index].Hindi;
+
+            };
+
+            $scope.SetDetails = function (index) {
+               $scope.fname = $scope.user[index].fname;
+               $scope.lname = $scope.user[index].lname;
+               $scope.email = $scope.user[index].email;
+               $scope.address = $scope.user[index].address;
+               $scope.country = $scope.user[index].country;
+               $scope.physics= $scope.user[index].physics;
+               $scope.chemistry= $scope.user[index].chemistry;
+               $scope.math= $scope.user[index].math;
+               $scope.english= $scope.user[index].english;
+               $scope.hindi= $scope.user[index].hindi;
+
+            };
+
+            $scope.showval = false;
+            $scope.hideval = true;
+
+            $scope.isShowHide = function (param) {
+               if (param == "show") {
+                  $scope.showval = true;
+                  $scope.hideval = true;
+               }
+               else if (param == "hide") {
+                  $scope.showval = false;
+                  $scope.hideval = false;
+               }
+               else {
+                  $scope.showval = true;
+                  $scope.hideval = false;
+               }
+            }
+            $scope.show = false;
+            
+            $scope.isShow = function (param) {
+               if (param == "show") {
+                  $scope.show = true;
+               }
+               else {
+                  $scope.show = false;
+               }
+            }
+         });  
+      </script>
+   </body>
+</html>

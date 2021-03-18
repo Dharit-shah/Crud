@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% load cms_tags menu_tags sekizai_tags %}
+{% block content %}
+
+    <div id="replaceable-content" class="col-6">
+        <table class="table table-striped table-bordered table-sm">
+            <thead class="thead-dark">
+                <tr>
+                    {% if desc %}
+                        {% if q %}
+                            <th><a href="/show/?q={{q}}">First Name</a></th>
+                        {% else %}
+                            <th><a href="/show/?sort=fname" >First Name</a></th>
+                        {% endif %}
+                    {% else %}
+                        {% if q %}
+                            <th><a href="/show/?desc=true&q={{q}}">First Name</a></th>
+                        {% else %}
+                            <th><a href="/show/?desc=true&sort=fname">First Name</a></th>
+                        {% endif %}
+                    {% endif %}
+                    {% if desc %}
+                        {% if q %}
+                            <th><a href="/show/?q={{q}}">Last Name</a></th>
+                        {% else %}
+                            <th><a href="/show/?sort=lname">Last Name</a></th>
+                        {% endif %}
+                    {% else %}
+                        {% if q %}
+                            <th><a href="/show/?desc=true&q={{q}}">Last Name</a></th>
+                        {% else %}
+                            <th><a href="/show/?desc=true&sort=lname">Last Name</a></th>
+                        {% endif %}
+                    {% endif %}
+                    <th>Email</th>
+                    <th>Contact</th>
+                    <th>Product</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for employee in employees %}
+                <tr id="employee-{{ employee.id }}">
+                    <td>{{ employee.fname }}</td>
+                    <td>{{ employee.lname }}</td>
+                    <td>{{ employee.email }}</td>
+                    <td>{{ employee.contact }}</td>
+                    <td>
+                        <a href="/showp/?user_id={{ employee.id }}"><span class="glyphicon glyphicon-pencil">Product</span></a>
+                    </td>
+                    <td>
+                        <a href="/update/{{ employee.id }}"><span class="glyphicon glyphicon-pencil" >Edit</span></a>
+                    </td>
+                    <td>
+                        <button class="form-control" onclick="deleteUser({{ employee.id }})">Delete</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <br>
+        <br>
+        <center><a href="/emp" class="btn btn-primary">Add New Record</a></center>
+<center>
+    {% if employees.has_other_pages %}
+    <ul class="pagination">
+        {% if employees.has_previous %}
+            <li><a href="?page={{ employees.previous_page_number }}&sort={{sorts}}{% if desc %}&desc=true&sort={{sorts}}{% endif %}{% if q %}&q={{q}}{% endif %}">&laquo;</a></li>
+        {% else %}
+            <li class="disabled"><span>&laquo;</span></li>
+        {% endif %}
+        {% for i in employees.paginator.page_range %}
+            {% if employees.number == i %}
+                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+            {% else %}
+                <li><a href="?page={{ i }}&sort={{sorts}}{% if desc %}&desc=true&sort={{sorts}}{% endif %}{% if q %}&q={{q}}{% endif %}">{{ i }}</a></li>
+            {% endif %}
+        {% endfor %}
+        {% if employees.has_next %}
+            <li><a href="?page={{ employees.next_page_number }}&sort={{sorts}}{% if desc %}&desc=true&sort={{sorts}}{% endif %}{% if q %}&q={{q}}{% endif %}">&raquo;</a></li>
+        {% else %}
+            <li class="disabled"><span>&raquo;</span></li>
+        {% endif %}
+    </ul>
+    {% endif %}
+</center>
+    </div>
+
+{% endblock content %}
+{% block footer %}
+	<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+	<script src="//cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+        <script src="{% static 'javascript/jquery-3.4.1.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'javascript/main.js' %}"></script>
+{% endblock %}

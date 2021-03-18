@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+
+    <table id="customuser" class="table table-striped table-bordered table-sm" border="1px solid black" align="center" data-server-side="true" data-ajax="/api/user/?format=datatables">
+        <thead class="thead-dark">
+            <tr>
+                <th data-data="id">Id</th>
+                <th data-data="fname">First Name</th>
+                <th data-data="lname">Last Lame</th>
+                <th data-data="email">Email</th>
+                <th data-data="contact">Contact</th>
+            </tr>
+        </thead>
+    </table>
+
+{% endblock content %}
+
+{% block footer %}
+
+
+    <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+
+    <script>$(document).ready(function() {$('#customuser').DataTable();});</script>
+
+{% endblock footer %}

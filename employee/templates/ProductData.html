@@ -1,0 +1,18 @@
+<table class="table" border="1px solid black" >
+  <thead class="thead-dark">
+    <th>ID</th>
+    <th>Name</th>
+    <th>Product Name</th>
+    <th>Categry</th>
+
+  </thead>
+  <tbody>
+  {% for product in products %}
+    <tr>
+      <td>{{product.id}}</td>
+      <td>{{ product.user_id.lname }} {{ product.user_id.fname }}</td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.categry }}</td>
+    </tr>
+  {% endfor %}
+</table>

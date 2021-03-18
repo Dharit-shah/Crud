@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load cms_tags %}
+{% load static %}
+        <title>
+            {% block title %}
+            {{ page_title|default:"USER" }}
+            {% endblock title %}
+        </title>
+{% block header %}
+{% endblock header %}
+{% block content %}
+
+        <form method="POST" class="post-form" action="/en/update/{{id}}">
+            {% csrf_token %}
+            <div class="container">
+                <br>
+                <div class="form-group row">
+                    <label class="col-sm-1 col-form-label"></label>
+                    <div class="col-sm-4">
+                        <h3>Update Details</h3>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-1 col-form-label col-sm-1">FirstName:</label>
+
+                       {{ employee.fname }}
+
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-1 col-form-label col-sm-1">LastName:</label>
+
+                       {{ employee.lname }}
+
+                </div>
+                <div class="form-group row">
+                    <label class=" col-sm-1  col-form-label col-sm-1">Email:</label>
+
+                     {{ employee.email }}
+
+                </div>
+                <div class="form-group row  ">
+                    <label class="  col-sm-1 col-form-label col-sm-1">Contact:</label>
+                        {{ employee.contact }}
+
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-1 col-form-label"></label>
+                    <div class="col-sm-4">
+                        <button type="submit" class="btn btn-success">Update</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    {% endblock content %}

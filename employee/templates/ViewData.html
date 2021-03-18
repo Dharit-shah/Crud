@@ -1,0 +1,17 @@
+<table class="table" border="1px solid black" >
+  <thead class="thead-dark">
+    <th>Id</th>
+    <th>Fullname</th>
+    <th>Email</th>
+    <th>Contact No.</th>
+  </thead>
+  <tbody>
+  {% for employee in employees %}
+    <tr>
+      <td>{{ employee.id }}</td>
+      <td>{{ employee.lname }} {{ employee.fname }}</td>
+      <td>{{ employee.email }}</td>
+      <td>{{ employee.contact }}</td>
+    </tr>
+  {% endfor %}
+</table>
